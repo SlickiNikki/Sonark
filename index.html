@@ -1,0 +1,2370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonark.org</title>
+    
+    <!-- Importing Bebas Neue from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@600&display=swap" rel="stylesheet">
+
+
+    <style>
+        html {
+            background: linear-gradient(180deg, #3d5a9e 0%, #1c2d6b 15%, #0f1f3d 35%, #050d1f 60%, #010508 80%, #010305 100%);
+            min-height: 100%;
+            height: 100%;
+        }
+        /* Base Theme and Typography */
+        body {
+            font-family: system-ui, -apple-system, 'Bebas Neue', sans-serif;
+            margin: 0;
+            padding: 16px;
+            background: transparent;
+            color: #E2F1E7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            overflow-x: hidden;
+        }
+
+        /* Slim Dark Blue Header Strip Across the Top Edge */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; 
+            margin-left: 0;       
+            background-color: #1c2753; 
+            padding: 8px 30px;         
+            z-index: 20;               
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+            box-sizing: border-box;
+
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+        }
+
+        /* Zone 1: Pins the menu button flush to the left boundary */
+        .header-left-zone {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        /* Zone 2: Keeps your logo and title locked together in the exact center of the page */
+        .header-center-zone {
+            display: flex;
+            align-items: center;
+            gap: 8px;                  /* Space between your logo and text */
+            justify-content: center;
+        }
+
+        /* Base properties for your branding image */
+        .header-logo {
+            width: 45px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Zone 3: Pins your e-commerce actions flush against the right wall */
+        .header-right-zone {
+            display: flex;
+            justify-content: flex-end;
+            gap: 14px;                 /* Distance between cart and profile buttons */
+        }
+
+        /* Clean, borderless icon link wrapper frames */
+        .nav-icon-btn {
+            background: none;
+            border: none;
+            padding: 4px;
+            margin: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Structural styling for vector icon lines */
+        .nav-icon {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: #f2eae3;           /* Draws vector elements in solid white */
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Bebas Neue, All Caps, and Solid White */
+        h1 { 
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400; 
+            font-size: 2.2rem; 
+            text-transform: uppercase;
+            margin: 0; 
+            color: #f2eae3; 
+            letter-spacing: 2px;
+            line-height: 1;
+            padding-top: 6px;
+            display: inline-block;    
+        }
+
+        /* Floating Side Tab Button */
+        .side-tab {
+            display: inline-block;
+            position: relative;                 
+            top: 100px;              /* Returned to original height position */
+            background: #67a4da; 
+            color: #f2eae3;
+            padding: 10px 30px 10px 40px;     /* Adjusted slightly down so it's a perfect medium-large size */
+            font-family: 'Bebas Neue', sans-serif !important; 
+            font-weight: 400;  
+            font-size: 2.0rem;     /* Set to a balanced size between your old text and the giant text */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 0 8px 8px 0; 
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            width: auto;       
+            line-height: 1;
+            z-index: 30;
+            margin-left: -16px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%), #67a4da;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;     
+            transform-origin: left center;
+        }
+
+        .side-tab:hover {
+            background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.4) 100%), #67a4da;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3),
+                        inset 0 -2px 0 rgba(255,255,255,0.6),
+                        inset 0 1px 0 rgba(0,0,0,0.2);
+            transform: scale(1);
+        }
+
+        .side-tab:active {
+            transform: scale(0.95);
+            filter: brightness(0.9);
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%), #67a4da;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.4),
+                        inset 0 -1px 0 rgba(0,0,0,0.15);
+        }
+
+        /* Full Screen Hero Image Container */
+        .hero-container {
+            width: calc(100% + 32px); 
+            margin-left: -16px;       
+            margin-right: -16px;      
+            margin-top: -70px; 
+            height: calc(100vh + 70px);   /* Automatically adds the 70px back to the viewport height */
+            height: calc(100svh + 70px);  
+            height: calc(100dvh + 70px);     
+            margin-bottom: 32px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 5;
+            align-self: center;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .hero-text-overlay {
+            position: absolute;
+            bottom: 25%;         
+            left: 50%;           
+            transform: translateX(calc(-50% + 65px)); /* Center offset keeps it slightly right */
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.1rem;
+            line-height: 1.1;
+            letter-spacing: 1px;
+            z-index: 10;         
+            text-shadow: 0 4px 12px rgba(0,0,0,0.6); 
+            
+            /* NEW: Groups text lines into a block that left-aligns itself */
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start; /* Forces the text rows to align to their left edges */
+            text-align: left;        /* Ensures text reads from left-to-right cleanly */
+        }
+
+        .hero-text-overlay div {
+            margin: 4px 0;
+        }
+
+        /* Custom color request definitions */
+        .word-primary {
+            color: #ff7f7f;
+        }
+
+        .word-secondary {
+            color: #f2eae3;
+        }
+
+        .tracking-line-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Stops the path from blocking touch swipes on the phone */
+            z-index: 6;           /* Layers it perfectly on top of the photo but behind your text elements */
+        }
+
+        /* Custom styling for the dashed tracking line */
+        .tracking-path {
+            stroke: #f3e3cb;          
+            stroke-width: 0.5;         /* Reduced to less than 1px for a true micro-dot look */
+            stroke-dasharray: 0, 3;    
+            stroke-linecap: round;
+            mask: url(#shark-center-mask); 
+        }
+
+        /* Container for the entire workflow journey section */
+        .process-section {
+            width: 100%;
+            position: relative;
+            padding: 40px 16px 60px 16px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+            align-self: stretch;
+        }
+
+        /* Section Title Typography */
+        .process-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            color: #f2eae3;
+            margin: 0 0 8px 0;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        /* Subtitle Stack Rules */
+        .process-subtitle {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            font-size: 1.25rem;
+            line-height: 1.2;
+            letter-spacing: 1px;
+            color: #f2eae3;
+            text-align: center;
+            margin: 0 0 60px 0;
+        }
+
+        .text-coral { color: #ff7f7f; }
+
+        /* The Winding Journey Grid Wrapper */
+        .journey-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 70px; /* Even spacing between your story cards */
+            display: flex;
+            flex-direction: column;
+            align-self: stretch; 
+        }
+
+        /* Individual Content Rows */
+        .journey-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 70px;
+        }
+
+        /* Forces the individual horizontal rows to stretch full-width from edge to edge */
+        .journey-row {
+            position: relative;
+            display: flex;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 15;
+        }
+
+        /* Flex layout systems explicitly tell the cards where to sit within the row */
+        .row-left { 
+            justify-content: flex-start; 
+            text-align: left;
+        }
+
+        .row-right { 
+            justify-content: flex-end; 
+            text-align: left; /* Keeps text reading left-to-right even when card is on the right side */
+        }
+
+        /* Compact container holding the fin image and text block together */
+        .story-card {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .story-text-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-family: 'Darker Grotesque', sans-serif;
+        }
+
+        /* NEW FIX FOR THE SENTENCES: Prevents words from jumping lines on different screen widths */
+        .story-text-block div {
+            white-space: nowrap;
+        }
+
+        .journey-text-line {
+            font-size: 0.95rem;
+            font-weight: 600;              /* Semi-bold weight package assignment */
+            font-style: normal !important; /* Forces standard flat typography */
+            color: #f2eae3;                /* Clean uniform cream tone */
+            opacity: 1 !important;
+        }
+
+        /* Layout for the custom little fin images */
+        .fin-badge {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        /* Text Formatting Inside the Cards */
+        .story-text-block {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .story-text-block p {
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .journey-text-line {
+            font-size: 1.25rem;
+            font-weight: 600;              /* Semi-bold weight package assignment */
+            font-style: normal !important; /* Forces standard flat typography */
+            color: #f2eae3;                /* Clean uniform cream tone */
+            opacity: 1 !important;
+        }
+
+        /* Winding background line that loops through the text sections */
+        .journey-line-svg {
+            position: absolute;
+            top: 120px; /* Starts right below the title headers */
+            left: 0;
+            width: 100%;
+            height: 600px;             
+            transform: scaleY(1.1);    /* Softly elongates the curves without altering pixel circle shape */
+            
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .journey-path {
+            stroke: #f3e3cb;
+            stroke-width: 0.8;         
+            stroke-dasharray: 0, 3;    /* 0 means no length, 3 sets the space between each perfect circle */
+            stroke-linecap: round;     /* This rounds out the 0-length points into perfect balls */
+        }
+
+        /* Container for the entire third info section */
+        .facts-section {
+            align-self: stretch;
+            width: 100%;
+            position: relative;
+            padding: 60px 24px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* Fact Headings using your Bebas Neue style font */
+        .facts-main-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            color: #f2eae3;
+            margin: 0 0 6px 0;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .facts-subtitle {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            color: #ff7f7f; /* Coral color matching your style */
+            margin: 0 0 40px 0;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        /* Centered content block holding the text stacks */
+        .facts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 32px; /* Uniform spacing between paragraphs */
+            width: 100%;
+            max-width: 320px; /* Keeps lines compact and matching on mobile viewports */
+            margin-bottom: 80px;
+        }
+
+        /* Individual fact paragraphs using Darker Grotesque font */
+        .fact-text {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.35;
+            color: #f2eae3;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* Custom highlighted text lines inside facts */
+        .highlight-coral {
+            color: #ff7f7f;
+        }
+
+        /* Container for the entire partnership zone */
+        .partner-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-top: 40px;
+            padding-bottom: 60px;
+        }
+
+        .partner-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            color: #f2eae3;
+            margin: 0 0 30px 0;
+            letter-spacing: 1px;
+        }
+
+        /* The physical stage that holds the spinning wheel */
+        .circle-carousel-stage {
+            position: relative;
+            width: 300px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        .carousel-logo-node {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .carousel-logo-node img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(1);
+            transition: none;
+        }
+
+        /* Unique background layer for your third page vector path */
+        .facts-line-svg {
+            position: absolute;
+            top: 40px;                 /* Starts right below the "DID YOU KNOW?" text layout */
+            left: 0;
+            width: 100%;
+            height: 500px;             
+            transform: scaleY(1.1);    
+            pointer-events: none;      
+            z-index: 1;
+        }
+
+        /* Container for the entire fourth profile page */
+        .Sonarks-section {
+            align-self: stretch;
+            width: 100%;
+            position: relative;
+            padding: 60px 16px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            margin-left: -16px;
+            margin-right: -16px;
+            width: calc(100% + 32px);
+            overflow: hidden;
+        }
+
+        /* Page Headline */
+        .Sonarks-main-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            color: #f2eae3;
+            margin: 0 0 30px 0;
+            letter-spacing: 1px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Split Profile Wrapper: Data Grid Left, Shark Image Right */
+        .profile-hero-split {
+            display: flex;
+            position: relative;
+            width: 100%;
+            align-items: center;       /* Centers content vertically */
+            margin-bottom: 40px;
+            min-height: 280px;         /* Increased height to accommodate the uncropped shark profile */
+        }
+
+        /* Left Profile Data Text Column */
+        .profile-data-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 15;
+            width: 55%;
+            margin-top: 50px;
+            margin-left: 50px;
+        }
+
+        .shark-name {
+            position: absolute;
+            right: 175px;   /* positions it just left of the shark image */
+            left: auto;                
+            top: 20%;                  
+            transform: translateY(-50%);
+            z-index: 10;
+
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.3rem;
+            font-weight: 400;
+            color: #bed6ef; /* Light ocean blue color */
+            margin: 0 0 4px 0;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .data-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .data-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+            color: #bed6ef;
+            opacity: 1;
+            text-transform: uppercase;
+        }
+
+        .data-value {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.0rem;
+            font-weight: 600;
+            color: #f2eae3;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        /* Right Shark Artwork Frame with Vignette Blur Mask */
+        .profile-image-mask {
+            position: absolute;
+            right: -60px;   /* bleeds off the right edge intentionally */
+            left: auto;                 /* Pulls it slightly inward from the margin to prevent any clipping */
+            top: 45%;
+            transform: translateY(-50%); /* Centers it vertically relative to Sabrina's text data block */
+            width: 300px;              /* Equal width and height forces a flawless circular footprint */
+            height: 300px;
+            z-index: 5;
+            pointer-events: none;    
+        }
+
+        .profile-shark-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;         /* Fills the circle boundary fully with no raw blue gaps inside */
+            display: block;
+            mask-image: radial-gradient(circle at 50% 50%, black 45%, transparent 73%);
+            -webkit-mask-image: radial-gradient(circle at 50% 50%, black 45%, transparent 73%);
+        }
+
+        /* Floating Staggered Cards Graphic Deck Layer */
+        .cards-deck-wrapper {
+            position: absolute;
+            /* Pushes the origin point down beneath Sabrina's data metrics text stack */
+            top: 240px;                
+            width: 100%;
+            height: 0;                 /* Zero height means it doesn't take up any physical page flow space */
+            display: block;
+            z-index: 12; 
+        }
+
+        /* Base properties for the twin fan collectible tracking tags */
+        .collectible-tag-art {
+            position: absolute;
+            right: 90px;
+            left: auto;  /* Adjust this to slide it further left or right */
+            top: 75px;                 /* Adjust this to slide it further up or down over her image */
+            width: 175px;               /* Constrains the image size so it sits elegantly under her nose */
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(-4px 8px 16px rgba(0, 0, 0, 0.4));
+        }
+
+        /* Exact angular twist overlay from your layout design blueprint */
+        .tag-front {
+            transform: rotate(-12deg) translateX(-20px);
+            z-index: 12;
+        }
+
+        .tag-back {
+            transform: rotate(18deg) translateX(45deg) translateY(10px);
+            z-index: 10;
+        }
+
+        /* Dynamic Live Tracking Feeds Stream Container */
+        .tracking-logs-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+            width: 100%;
+            margin-top: 140px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .log-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            z-index: 15;
+            text-align: center;
+        }
+
+        /* Vector Radar Beacon Glow Icon */
+        .beacon-ping-icon {
+            width: 28px;               /* Sized perfectly to fit the signal waves */
+            height: 28px;
+            fill: none;
+            stroke-width: 1.25;
+            stroke-linecap: round;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .color-coral { stroke: #ff7f7f; }
+        .color-muted { stroke: #67a4da; opacity: 0.5; }
+
+        .is-animating .radar-wave-inner {
+            transform-origin: center;
+            animation: radarPulse 1.8s infinite ease-out;
+        }
+
+        .is-animating .radar-wave-mid {
+            transform-origin: center;
+            animation: radarPulse 1.8s infinite ease-out;
+            animation-delay: 0.4s; /* Delays the middle wave expansion */
+        }
+
+        .is-animating .radar-wave-outer {
+            transform-origin: center;
+            animation: radarPulse 1.8s infinite ease-out;
+            animation-delay: 0.8s; /* Delays the outer wave expansion */
+        }
+
+        @keyframes radarPulse {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            30% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.3);
+            }
+        }  
+
+        .log-text-node {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        /* Header/Timestamp lines */
+        .log-headline-coral {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #ff7f7f;
+        }
+
+        .log-headline-blue-mid {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #67a4da;
+            opacity: 1;
+        }
+
+        /* May 7th: Uses the exact same blue, but fades out significantly more */
+        .log-headline-blue-faded {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #67a4da;
+            opacity: 1;
+        }
+
+        /* Informational descriptive lines */
+        .log-desc-body {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: #E2F1E7;
+        }
+
+        .log-desc-dimmed {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: #E2F1E7;
+            opacity: 0.5; /* Emphasizes older updates by running them slightly dimmer */
+        }
+
+        /* Unique background layer for your fourth page vector tracking line path */
+        .Sonarks-line-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        /* Container for the fifth page section */
+        .map-info-section {
+            align-self: stretch;
+            width: 100%;
+            position: relative;
+            padding: 60px 16px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* Typography classes for the top and bottom text blocks */
+        .map-text-block {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: 24px;
+            transform: rotate(-5deg);
+            transform-origin: left center;
+            align-self: flex-start;
+            text-align: center;
+            margin-left: 30px;
+        }
+
+        .map-text-line {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: #E2F1E7;
+        }
+
+        /* Map Display Box Frame: Styled to look clean and kid-friendly */
+        .map-graphic-frame {
+            position: relative;
+            width: 100%;
+            max-width: 340px;
+            height: 360px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            margin-bottom: 32px;
+            border: 3.5px solid #67a4da;
+            overflow: visible;
+        }
+
+        /* The background map graphic */
+        .kid-map-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Soft filter tweaks to brighten the oceans and give it a clean vector aesthetic */
+            filter: saturate(1.2) contrast(1.05) brightness(1.02);
+        }
+
+        /* Base properties for the custom absolute-positioned shark fin markers */
+        .map-fin-marker {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        /* Exact coordinates mapping the 3 fin positions based on your sketch layout */
+        #mapFin1 { top: 25%; left: 62%; }
+        #mapFin2 { top: 60%; left: 72%; }
+        #mapFin3 { top: 75%; left: 45%; }
+
+        /* The actual fin image asset inside the marker stage */
+        .map-fin-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Animated Pulse Rings: Reuses your existing radar animation engine */
+        .fin-pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 44px;
+            height: 44px;
+            margin-top: -22px;
+            margin-left: -22px;
+            border: 2px solid #ff7f7f; /* Coral red glow to match the live pings */
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+            transform-origin: center;
+            /* Links directly into the pulse sequence you already have saved in your file */
+            animation: radarPulse 1.8s infinite ease-out;
+        }
+
+        .map-speech-bubble {
+            position: absolute;
+            background: rgba(190, 214, 239, 0.92);
+            color: #1c2753;
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            padding: 14px 16px;
+            border-radius: 50px;
+            width: 160px;
+            text-align: center;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.6);
+            border: 2px solid rgba(255,255,255,0.5);
+            bottom: 20px;
+            left: 30px;
+            animation: bubblePop 0.3s ease;
+        }
+
+        .map-speech-bubble::before {
+            content: '🦈';
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .map-speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 12px;
+            border-width: 10px 8px 0 8px;
+            border-style: solid;
+            border-color: rgba(190, 214, 239, 0.92) transparent transparent transparent;
+        }
+
+        .map-speech-bubble.is-visible {
+            display: block;
+        }
+
+        .map-speech-bubble.is-popping {
+            display: block;
+            animation: bubblePop-out 0.25s ease forwards;
+        }
+
+        .bubble-splash {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            bottom: 60px;
+            left: calc(50% + 100px);
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        .bubble-splash span {
+            position: absolute;
+            width: 14px;
+            height: 20px;
+            border-radius: 50% 50% 40% 40% / 60% 60% 30% 30%;
+            transform-origin: center bottom;
+            background: rgba(190, 214, 239, 0.9);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+
+        .bubble-splash.splashing span:nth-child(1) { animation: splash1 0.65s cubic-bezier(0.2, 0.8, 0.4, 1) forwards; }
+        .bubble-splash.splashing span:nth-child(2) { animation: splash2 0.65s cubic-bezier(0.2, 0.8, 0.4, 1) forwards 0.03s; }
+        .bubble-splash.splashing span:nth-child(3) { animation: splash3 0.65s cubic-bezier(0.2, 0.8, 0.4, 1) forwards 0.06s; }
+        .bubble-splash.splashing span:nth-child(4) { animation: splash4 0.65s cubic-bezier(0.2, 0.8, 0.4, 1) forwards 0.03s; }
+        .bubble-splash.splashing span:nth-child(5) { animation: splash5 0.65s cubic-bezier(0.2, 0.8, 0.4, 1) forwards 0.06s; }
+        .bubble-splash.splashing span:nth-child(6) { animation: splash6 0.65s cubic-bezier(0.2, 0.8, 0.4, 1) forwards; }
+
+        @keyframes bubblePop {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.15); opacity: 1; }
+            80% { transform: scale(0.95); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes bubblePop-out {
+            0%   { transform: scale(1);   opacity: 1; }
+            30%  { transform: scale(1.1); opacity: 0.1; }
+            60%  { transform: scale(1.2); opacity: 0.0; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+
+        @keyframes splash1 { 0% { transform: translate(-50%,-50%) scale(1); opacity:1; } 100% { transform: translate(calc(-50% + 70px), calc(-50% - 70px)) scale(0); opacity:0; } }
+        @keyframes splash2 { 0% { transform: translate(-50%,-50%) scale(1); opacity:1; } 100% { transform: translate(calc(-50% + 90px), calc(-50%)) scale(0); opacity:0; } }
+        @keyframes splash3 { 0% { transform: translate(-50%,-50%) scale(1); opacity:1; } 100% { transform: translate(calc(-50% + 70px), calc(-50% + 70px)) scale(0); opacity:0; } }
+        @keyframes splash4 { 0% { transform: translate(-50%,-50%) scale(1); opacity:1; } 100% { transform: translate(calc(-50% - 70px), calc(-50% + 70px)) scale(0); opacity:0; } }
+        @keyframes splash5 { 0% { transform: translate(-50%,-50%) scale(1); opacity:1; } 100% { transform: translate(calc(-50% - 90px), calc(-50%)) scale(0); opacity:0; } }
+        @keyframes splash6 { 0% { transform: translate(-50%,-50%) scale(1); opacity:1; } 100% { transform: translate(calc(-50% - 70px), calc(-50% - 70px)) scale(0); opacity:0; } }
+
+        /* Extra delay offsets so the 3 separate map fins ripple sequentially */
+        #mapFin2 .fin-pulse-ring { animation-delay: 0.4s; }
+        #mapFin3 .fin-pulse-ring { animation-delay: 0.8s; }
+
+        /* Mid-page text block cushion space */
+        .map-middle-text {
+            margin-bottom: 25px;
+            transform: rotate(5deg);
+            transform-origin: right center;
+            align-self: flex-end;
+            margin-right: -15px;
+        }
+
+        .map-lower-text {
+            transform: rotate(-5deg);
+            transform-origin: right center;
+            align-self: flex-start;
+            margin-left: 40px;
+        }
+
+        .map-lowest-text {
+            transform: rotate(5deg);
+            transform-origin: right center;
+            align-self: flex-end;
+            margin-right: 10px;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        /* Footer Accent Text Style */
+        .star-footer-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: #FFFFFF;
+            text-align: center;
+            margin-top: 40px;
+            text-transform: uppercase;
+        }
+
+        .text-coral-star {
+            color: #ff7f7f;
+        }
+
+        /* The menu background that sits behind everything */
+        .nav-dropdown-drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #27386e 0%, #1a2d5a 20%, #0f1f3d 40%, #060f1f 70%, #010912 100%) !important;
+            z-index: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-left: 48px;
+            padding-top: 80px;
+            box-sizing: border-box;
+            gap: 28px;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .nav-dropdown-drawer a {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-weight: 600;
+            font-size: 2rem;
+            color: #f2eae3;
+            text-decoration: none;
+            letter-spacing: 2px;
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .nav-dropdown-drawer.is-open {
+            opacity: 1;
+        }
+
+        .page-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 1;
+            transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1),
+                        border-radius 0.45s ease;
+            will-change: transform;
+            background: linear-gradient(180deg, #3d5a9e 0%, #1c2d6b 15%, #0f1f3d 35%, #050d1f 60%, #010508 80%, #010305 100%);
+            background-attachment: local;
+            min-height: 100%;
+        }
+
+        .page-wrapper.menu-open {
+            transform: translate(40%, 0) scale(1);
+            border-radius: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            box-shadow: 15px -12px 40px rgba(0,0,0,0.8);
+        }
+
+        /* Internal Profile Link Button Styling inside the list drawer */
+        .menu-account-link {
+            display: flex;
+            align-items: center;
+            background: none;
+            border: none;
+            padding: 12px 0;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .menu-account-text {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #f2eae3;            /* Clean uniform cream font tone matching your site profile */
+            margin-left: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-section {
+            width: 100%;
+            padding: 60px 24px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+        }
+
+        .cta-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #f2eae3;
+            margin: 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cta-body {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #f2eae3;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .cta-coral {
+            color: #ff7f7f;
+        }
+
+        .cta-main-btn {
+            width: auto;
+            min-width: 250px; /* Gives it a clean minimum width */
+            max-width: 300px;
+            padding: 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%), #67a4da;
+            color: #f2eae3;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+            transform-origin: center;
+            align-self: center;
+        }
+
+        .cta-main-btn:hover {
+            background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.4) 100%), #67a4da;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3),
+                        inset 0 -2px 0 rgba(255,255,255,0.6),
+                        inset 0 1px 0 rgba(0,0,0,0.2);
+            transform: scale(1);
+        }
+
+        .cta-main-btn:active {
+            transform: scale(0.95);
+            filter: brightness(0.9);
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%), #67a4da;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.4),
+                        inset 0 -1px 0 rgba(0,0,0,0.15);
+        }
+
+        .cta-sub-text {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-style: italic;
+            color: #f2eae3;
+            margin: 20px 0 0 0;
+            line-height: 1.5;
+            text-align: center;
+            width: 100%;
+        }
+
+        .cta-club-btn {
+            background: none;
+            border: none;
+            border-bottom: 2px solid #ff7f7f;
+            color: #f2eae3;
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-style: italic;
+            cursor: pointer;
+            padding: 4px 0;
+            align-self: center;
+            margin-top: 8px;
+        }
+
+    html {
+            background: linear-gradient(180deg, #3d5a9e 0%, #1c2d6b 15%, #0f1f3d 35%, #050d1f 60%, #010508 80%, #010305 100%);
+            min-height: 100%;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            color: #E2F1E7;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1c2753;
+            padding: 8px 30px;
+            z-index: 20;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+        }
+
+        .header-left-zone {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .header-center-zone {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .header-logo {
+            width: 45px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .header-right-zone {
+            display: flex;
+            justify-content: flex-end;
+            gap: 14px;
+        }
+
+        .nav-icon-btn {
+            background: none;
+            border: none;
+            padding: 4px;
+            margin: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icon {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: #f2eae3;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 400;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            margin: 0;
+            color: #f2eae3;
+            letter-spacing: 2px;
+            line-height: 1;
+            padding-top: 6px;
+            display: inline-block;
+        }
+
+        .page-content {
+            position: relative;
+            padding: 90px 28px 60px 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 48px;
+            z-index: 1;
+        }
+
+        /* Section blocks */
+        .about-section {
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: #f2eae3;
+            letter-spacing: 2px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: #f2eae3;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .text-coral { color: #ff7f7f; }
+
+        .section-body {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #E2F1E7;
+            margin: 0;
+        }
+
+        .divider {
+            width: 100%;
+            max-width: 360px;
+            height: 1px;
+            background: rgba(242, 234, 227, 0.15);
+        }
+
+        /* Feature list */
+        .feature-list {
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .fin-badge {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #f2eae3;
+            line-height: 1.3;
+        }
+
+        /* CTA button */
+        .cta-btn {
+            min-width: 250px; /* Gives it a clean minimum width */
+            max-width: 300px;
+            padding: 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%), #67a4da;
+            color: #f2eae3;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+            transform-origin: center;
+        }
+
+        .cta-btn:hover {
+            background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.4) 100%), #67a4da;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3),
+                        inset 0 -2px 0 rgba(255,255,255,0.6),
+                        inset 0 1px 0 rgba(0,0,0,0.2);
+            transform: scale(1);
+        }
+
+        .cta-btn:active {
+            transform: scale(0.95);
+            filter: brightness(0.9);
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%), #67a4da;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.4),
+                        inset 0 -1px 0 rgba(0,0,0,0.15);
+        }
+
+        /* Background winding dot path */
+        .bg-path-svg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .page-content > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('topo.svg'), linear-gradient(180deg, #3d5a9e 0%, #1c2d6b 15%, #0f1f3d 35%, #050d1f 60%, #010508 80%, #010305 100%);
+            background-repeat: repeat, no-repeat;
+            background-size: 2000px auto, cover;
+            background-attachment: local, local;
+            z-index: 50;
+            transform: translateX(100%);
+            transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .about-panel.is-open {
+            z-index: 50;
+            transform: translateX(0);
+        }
+
+        .about-panel.is-open ~ #pageWrapper,
+        body:has(.about-panel.is-open) #pageWrapper {
+            z-index: 0;
+        }
+
+        .about-panel.menu-open {
+            transform: translate(40%, 0) scale(1);
+            border-radius: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            box-shadow: 15px -12px 40px rgba(0,0,0,0.8);
+        }
+
+        .faq-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('topofaq.svg'), linear-gradient(180deg, #3d5a9e 0%, #1c2d6b 15%, #0f1f3d 35%, #050d1f 60%, #010508 80%, #010305 100%);
+            background-repeat: repeat, no-repeat;
+            background-size: 2000px auto, cover;
+            background-attachment: local, local;
+            z-index: 50;
+            transform: translateX(100%);
+            transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .faq-panel.is-open {
+            transform: translateX(0);
+        }
+
+        .faq-panel.menu-open {
+            transform: translate(40%, 0) scale(1);
+            border-radius: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            box-shadow: 15px -12px 40px rgba(0,0,0,0.8);
+        }
+
+        .faq-section {
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            text-align: center;
+        }
+
+        .faq-question {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: #f2eae3;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .faq-answer {
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #E2F1E7;
+            margin: 0;
+        }
+
+        .email-signup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 8px 16px;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            color: #f2eae3;
+            font-family: 'Darker Grotesque', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.2s ease;
+        }
+
+        .email-input::placeholder {
+            color: rgba(242, 234, 227, 0.4);
+        }
+
+        .email-input:focus {
+            border-color: rgba(103, 164, 218, 0.7);
+        }
+
+        .email-submit-btn {
+            min-width: 150px; /* Gives it a clean minimum width */
+            max-width: 200px;
+            padding: 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%), #67a4da;
+            color: #f2eae3;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+            transform-origin: center;
+        }
+
+        .email-submit-btn:hover {
+            background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.4) 100%), #67a4da;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3),
+                        inset 0 -2px 0 rgba(255,255,255,0.6),
+                        inset 0 1px 0 rgba(0,0,0,0.2);
+            transform: scale(1);
+        }
+
+        .email-submit-btn:active {
+            transform: scale(0.95);
+            filter: brightness(0.9);
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%), #67a4da;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.4),
+                        inset 0 -1px 0 rgba(0,0,0,0.15);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="nav-dropdown-drawer" id="navDrawer">
+        <a href="#" onclick="closeAll(); document.getElementById('pageWrapper').scrollTo({top: 0, behavior: 'smooth'});">HOME</a>
+        <a href="#" onclick="openAbout()">MISSION</a>
+        <a href="#" onclick="openFaq()">FAQ</a>
+        <a href="#">CART</a>
+        <a href="#">PROFILE</a>
+    </div>
+
+    <div class="page-wrapper" id="pageWrapper">
+    <!-- Slim Solid Top Navigation Bar -->
+    <header>
+        <!-- LEFT COLUMN: Contains ONLY the 3-Line Hamburger Menu Button -->
+        <div class="header-left-zone">
+                <!-- TOGGLE FIX: Clicking this button now slides the menu drawer open or shut -->
+                <button class="nav-icon-btn" id="menuBtn" onclick="toggleMenu()">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <!-- CENTER COLUMN: Brand Logo Linked Right Next To Centered Text Title (Untouched) -->
+            <div class="header-center-zone">
+                <img class="header-logo" src="Sonark1.png" alt="Sonark Logo">
+                <h1>Sonark</h1>
+            </div>
+            <!-- RIGHT COLUMN: Contains ONLY your Shopping Cart (Untouched) -->
+            <div class="header-right-zone">
+                <button class="nav-icon-btn" onclick="alert('Shopping Cart Clicked')">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+    <!-- Floating Side Tab Button Element -->
+    <button class="side-tab" onclick="alert('Side tab clicked!')">SEE YOUR SHARK</button>
+    <!-- Full Screen Viewport Landing Image -->
+    <div class="hero-container">
+        <img class="hero-img" src="Jeremy.png" alt="Ocean tracking background">
+        <div class="hero-text-overlay">
+            <div><span class="word-primary">ONE</span> <span class="word-secondary">SHARK</span></div>
+            <div><span class="word-primary">ONE</span> <span class="word-secondary">STORY</span></div>
+            <div><span class="word-primary">ALWAYS</span> <span class="word-secondary">MOVING</span></div>
+        </div>
+    </div>
+    <!-- PROCESS WORKFLOW SECTION: Follows directly beneath your full-screen image container -->
+    <div class="process-section">
+        
+        <h2 class="process-title">THE PROCESS</h2>
+        <div class="process-subtitle">
+            A SIMPLE CONNECTION<br>
+            BETWEEN <span class="text-coral">YOU</span> AND A<br>
+            <span class="text-coral">REAL SHARK</span>
+        </div>
+        <!-- The continuous winding tracking line running down behind your workflow blocks -->
+        <div class="journey-container">
+            <!-- ROW 1: Aligned Left -->
+            <div class="journey-row row-left">
+                <div class="story-card">
+                    <img class="fin-badge" src="SNOOT.png" alt="Fin">
+                    <div class="story-text-block">
+                        <div class="journey-text-line">A shark is selected from</div>
+                        <div class="journey-text-line">active research programs.</div>
+                        <div style="margin-top: 8px;"></div>
+                        <div class="journey-text-line">You do not choose the shark,</div>
+                        <div class="journey-text-line">the shark chooses you.</div>
+                    </div>
+                </div>
+            </div>
+            <!-- ROW 2: Aligned Right -->
+            <div class="journey-row row-right">
+                <div class="story-card">
+                    <img class="fin-badge" src="SNOOT.png" alt="Fin">
+                    <div class="story-text-block">
+                        <div class="journey-text-line">When your shark changes</div>
+                        <div class="journey-text-line">course, depths, or seas,</div>
+                        <div class="journey-text-line">you receive a Sonark ping.</div>
+                        <div style="margin-top: 8px;"></div>
+                        <div class="journey-text-line">Each update reflects a real</div>
+                        <div class="journey-text-line">significant moment in your</div>
+                        <div class="journey-text-line">shark's journey.</div>
+                    </div>
+                </div>
+            </div>
+            <!-- ROW 3: Aligned Left -->
+            <div class="journey-row row-left">
+                <div class="story-card">
+                    <img class="fin-badge" src="SNOOT.png" alt="Fin">
+                    <div class="story-text-block">
+                        <div class="journey-text-line">There's no race,</div>
+                        <div class="journey-text-line">no finish line.</div>
+                        <div style="margin-top: 8px;"></div>
+                        <div class="journey-text-line">Just movement,</div>
+                        <div class="journey-text-line">and a story.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- THIRD PAGE: SAVE OUR SHARKS FACTS & PARTNERS INFO -->
+    <div class="facts-section">
+        <h2 class="facts-main-title">PLEASE SAVE OUR SHARKS</h2>
+        <div class="facts-subtitle">DID YOU KNOW?</div>
+        <!-- The Winding Text Content Block -->
+        <div class="facts-container">
+            <p class="fact-text">
+                Humans kill an estimated <span class="highlight-coral">100 million</span> sharks a year (that's <span class="highlight-coral">274,000</span> sharks every day, and <span class="highlight-coral">11,000</span> every hour).
+            </p>
+            <p class="fact-text">
+                There's over <span class="highlight-coral">500 species</span> of sharks ranging from the size of your hand to the size of a school bus.
+            </p>
+            <p class="fact-text">
+                Over <span class="highlight-coral">140 of these</span> are under threat, from vulnerable to critically endangered.
+            </p>
+            <p class="fact-text">
+                By protecting mid-level fish that eat algae, sharks indirectly help <span class="highlight-coral">mitigate carbon emissions</span>.
+            </p>
+            <p class="fact-text">
+                Most sharks reproduce slowly and with around 10-12 years to maturity, <span class="highlight-coral">shark populations struggle</span> to recover from decline.
+            </p>
+        </div>
+        <!-- Partnership Zone layout -->
+        <!-- INTERACTIVE SPINNING CIRCULAR PARTNERSHIP TRACK -->
+    <div class="partner-section">
+        <h3 class="partner-title">IN PARTNERSHIP WITH</h3>
+        <div class="circle-carousel-stage" id="carouselStage">
+            <div class="carousel-logo-node" id="partnerNode1">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'><text x='0' y='22' font-family='sans-serif' font-weight='bold' font-size='12' fill='white'>AAAAAA</text></svg>" alt="Ecocean">
+            </div>
+            <div class="carousel-logo-node" id="partnerNode2">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'><text x='0' y='22' font-family='sans-serif' font-weight='bold' font-size='12' fill='white'>AAAAAA</text></svg>" alt="OceanWatch">
+            </div>
+            <div class="carousel-logo-node" id="partnerNode3">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'><text x='0' y='22' font-family='sans-serif' font-weight='bold' font-size='12' fill='white'>AAAAAA</text></svg>" alt="SeaTrack">
+            </div>
+            <div class="carousel-logo-node" id="partnerNode4">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'><text x='0' y='22' font-family='sans-serif' font-weight='bold' font-size='12' fill='white'>AAAAAA</text></svg>" alt="SharkLab">
+            </div>
+            <div class="carousel-logo-node" id="partnerNode5">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'><text x='0' y='22' font-family='sans-serif' font-weight='bold' font-size='12' fill='white'>AAAAAA</text></svg>" alt="SpotAShark">
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Active Tracker script to read degrees and apply highlight classes -->
+    <script>
+        const items = [
+            document.getElementById('partnerNode1'),
+            document.getElementById('partnerNode2'),
+            document.getElementById('partnerNode3'),
+            document.getElementById('partnerNode4'),
+            document.getElementById('partnerNode5')
+        ];
+
+        const count = items.length;
+        const radiusX = 120;
+        const radiusY = 30;
+        let angle = 0;
+        let autoRotate = true;
+        let isDragging = false;
+        let lastX = 0;
+
+        const stage = document.getElementById('carouselStage');
+
+        stage.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            autoRotate = false;
+            lastX = e.clientX;
+        });
+
+        stage.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            autoRotate = false;
+            lastX = e.touches[0].clientX;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const delta = e.clientX - lastX;
+            angle += delta * 0.01;
+            lastX = e.clientX;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const delta = e.touches[0].clientX - lastX;
+            angle += delta * 0.01;
+            lastX = e.touches[0].clientX;
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            autoRotate = true;
+        });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+            autoRotate = true;
+        });
+
+        function updateCarousel() {
+            const angleStep = (2 * Math.PI) / count;
+
+            items.forEach((item, i) => {
+                const theta = angle + i * angleStep;
+                const x = Math.sin(theta) * radiusX;
+                const y = Math.cos(theta) * radiusY;
+                const cosVal = (Math.cos(theta) + 1) / 2;
+                const scale = 0.5 + 0.5 * cosVal;
+                const opacity = 0.15 + 0.85 * (cosVal * cosVal * cosVal);
+                const zIndex = Math.round(scale * 100);
+                const grayscale = 1 - (cosVal * cosVal * cosVal);
+                const blur = (1 - cosVal) * 3;
+
+                item.style.left = `calc(50% + ${x}px - 40px)`;
+                item.style.top = `calc(50% + ${y}px - 20px)`;
+                item.style.transform = `scale(${scale})`;
+                item.style.opacity = opacity;
+                item.style.zIndex = zIndex;
+                item.style.filter = `grayscale(${grayscale}) blur(${blur}px)`;
+            });
+
+            if (autoRotate) angle += 0.005;
+            requestAnimationFrame(updateCarousel);
+        }
+
+        updateCarousel();
+    </script>
+        <!-- FOURTH PAGE: Recent Pings (SHARK TRACKING PROFILE) -->
+        <div class="Sonarks-section">
+            <h2 class="Sonarks-main-title">RECENT PINGS</h2>
+            <!-- Interactive Background Winding Circle Path Tracker Line -->
+            <svg class="Sonarks-line-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <!-- Continuous cubic coordinate path looping precisely around text content blocks -->
+                <path class="journey-path" d="M 0,2 C 45,5 65,-8 10,24 C -25,44 65,34 92,54 C 120,74 25,82 5,95" fill="none" />
+            </svg>
+            <!-- Profile Presentation Block -->
+            <div class="profile-hero-split">
+                <div class="profile-data-column">
+                    <div class="data-group">
+                        <span class="data-label">SPECIES:</span>
+                        <span class="data-value">GREY REEF SHARK</span>
+                    </div>
+                    <div class="data-group">
+                        <span class="data-label">STATUS:</span>
+                        <span class="data-value">ACTIVE</span>
+                    </div>
+                    <div class="data-group">
+                        <span class="data-label">TAGGED:</span>
+                        <span class="data-value">AUSTRALIA</span>
+                    </div>
+                </div>
+                <h3 class="shark-name">SABRINA</h3>
+                <!-- Profile Mask Asset Frame -->
+                <div class="profile-image-mask">
+                    <!-- Replace with your local sabrina-profile.png file later -->
+                    <img class="profile-shark-img" src="Sabrina.png" alt="Sabrina the Bronze Whaler Shark">
+                </div>
+            </div>
+            <!-- Staggered Tracking Cards Graphics Deck Display -->
+            <div class="cards-deck-wrapper">
+                <!-- Clean standalone asset -->
+                <img class="collectible-tag-art" src="Cardsorwhatever.png" alt="Collectible Tag Art">
+            </div>
+            <!-- Dynamic Live Ping Updates Logs Feed -->
+            <div class="tracking-logs-stream">
+            <!-- UPDATE 1: Animating Live Ping -->
+                <div class="log-card">
+                    <div style="display:flex; align-items:center; gap:8px; justify-content:center;">
+                        <svg class="beacon-ping-icon color-coral is-animating" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="1.5" fill="#ff7f7f" />
+                            <path class="radar-wave-inner" d="M 10.2,10.2 A 2.5 2.5 0 0 0 10.2,13.8 M 13.8,10.2 A 2.5 2.5 0 0 1 13.8,13.8" />
+                            <path class="radar-wave-mid" d="M 8,8 A 5.5 5.5 0 0 0 8,16 M 16,8 A 5.5 5.5 0 0 1 16,16" />
+                            <path class="radar-wave-outer" d="M 5.5,5.5 A 9 9 0 0 0 5.5,18.5 M 18.5,5.5 A 9 9 0 0 1 18.5,18.5" />
+                        </svg>
+                        <span class="log-headline-coral">Your Recent Pings:</span>
+                    </div>
+                    <span class="log-desc-body">Moved 42km northeast through the warm coastal currents.</span>
+                </div>
+                <!-- UPDATE 2: Historical Ping (Static / Muted Color) -->
+                <div class="log-card" style="opacity: 0.6;">
+                    <div style="display:flex; align-items:center; gap:8px; justify-content:center;">
+                        <svg class="beacon-ping-icon color-muted" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="1.5" fill="#67a4da" />
+                            <path d="M 10.2,10.2 A 2.5 2.5 0 0 0 10.2,13.8 M 13.8,10.2 A 2.5 2.5 0 0 1 13.8,13.8" />
+                            <path d="M 8,8 A 5.5 5.5 0 0 0 8,16 M 16,8 A 5.5 5.5 0 0 1 16,16" />
+                            <path d="M 5.5,5.5 A 9 9 0 0 0 5.5,18.5 M 18.5,5.5 A 9 9 0 0 1 18.5,18.5" />
+                        </svg>
+                        <span class="log-headline-blue-mid">May 24:</span>
+                    </div>
+                    <span class="log-desc-dimmed">Descended to a record depth of 243 meters.</span>
+                </div>
+                <!-- UPDATE 3: Historical Ping (May 7th) -->
+                <div class="log-card" style="opacity: 0.4;">
+                    <div style="display:flex; align-items:center; gap:8px; justify-content:center;">
+                        <svg class="beacon-ping-icon color-muted" viewBox="0 0 24 24" style="opacity: 0.5;">
+                            <circle cx="12" cy="12" r="1.5" fill="#67a4da" />
+                            <path d="M 10.2,10.2 A 2.5 2.5 0 0 0 10.2,13.8 M 13.8,10.2 A 2.5 2.5 0 0 1 13.8,13.8" />
+                            <path d="M 8,8 A 5.5 5.5 0 0 0 8,16 M 16,8 A 5.5 5.5 0 0 1 16,16" />
+                            <path d="M 5.5,5.5 A 9 9 0 0 0 5.5,18.5 M 18.5,5.5 A 9 9 0 0 1 18.5,18.5" />
+                        </svg>
+                        <span class="log-headline-blue-faded">May 7th:</span>
+                    </div>
+                    <span class="log-desc-dimmed">Followed strong currents south to the open ocean.</span>
+                </div>
+        </div>
+    <!-- FIFTH PAGE: INTERACTIVE KID-FRIENDLY MAP APP SCREEN -->
+    <div class="map-info-section">
+        
+        <!-- Top Text Block -->
+        <div class="map-text-block">
+            <div class="map-text-line">Once you've been chosen by a shark,</div>
+            <div class="map-text-line">you'll receive a QR code by mail.</div>
+            <div style="margin-top: 8px;"></div>
+        </div>
+        <div class="map-text-block map-middle-text">
+            <div class="map-text-line">To track your shark: Download the</div>
+            <div class="map-text-line">Sonark app and scan the QR code.</div>
+        </div>
+
+        <!-- The Interactive Map Container -->
+        <div class="map-graphic-frame">
+            <!-- Replace map-placeholder.png with your clean, kid-friendly vector map later -->
+            <!-- THE KID-FRIENDLY ILLUSTRATED MAP STAGE -->
+                <svg class="kid-map-canvas" viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%; height:100%; background-color:#1c3d5a; display:block;">
+    
+                    <!-- Muted Lush Green Landmass (Replaced old #D2E4D6 sage) -->
+                    <path d="M-10,-10 L32,-10 Q28,15 38,32 Q22,48 28,68 Q10,76 18,105 L-10,105 Z" fill="#4d7c54" />
+                    <path d="M78,-10 Q88,18 105,12 L105,-10 Z" fill="#4d7c54" />
+                    
+                    <!-- Shoreline Boundary: Deepened to match the new land color -->
+                    <path d="M32,-10 Q28,15 38,32 Q22,48 28,68 Q10,76 18,105" fill="none" stroke="#3b6141" stroke-width="0.8" />
+                    <path d="M78,-10 Q88,18 105,12" fill="none" stroke="#3b6141" stroke-width="0.8" />
+                    
+                    <!-- Minor Soft White Gridlines -->
+                    <line x1="0" y1="20" x2="100" y2="20" stroke="#FFFFFF" stroke-width="0.2" opacity="0.15" />
+                    <line x1="0" y1="50" x2="100" y2="50" stroke="#FFFFFF" stroke-width="0.2" opacity="0.15" />
+                    <line x1="0" y1="80" x2="100" y2="80" stroke="#FFFFFF" stroke-width="0.2" opacity="0.15" />
+                    <line x1="30" y1="0" x2="30" y2="100" stroke="#FFFFFF" stroke-width="0.2" opacity="0.15" />
+                    <line x1="70" y1="0" x2="70" y2="100" stroke="#FFFFFF" stroke-width="0.2" opacity="0.15" />
+                    
+                    <!-- Clean Vector Tracking Route Trail -->
+                    <path d="M 62,25 C 80,40 82,50 72,60 C 60,70 52,65 45,75" fill="none" stroke="#FFFFFF" stroke-width="0.8" stroke-dasharray="1.5, 2.5" opacity="0.6" />
+                    
+                    <!-- TEXT LABELS: Switched fill to pure white (#FFFFFF) so they pop perfectly off the new dark blue water -->
+                    <!-- Catania Region Label Block -->
+                    <circle cx="28" cy="48" r="1.2" fill="#FFFFFF" opacity="0.9" />
+                    <text x="24" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="3.5" font-weight="700" fill="#FFFFFF" letter-spacing="0.2px">Catania</text>
+                    
+                    <!-- Taormina Label Block -->
+                    <circle cx="34" cy="22" r="1" fill="#FFFFFF" opacity="0.8" />
+                    <text x="38" y="23" font-family="system-ui, -apple-system, sans-serif" font-size="3" font-weight="600" fill="#FFFFFF" opacity="0.9">Taormina</text>
+                    
+                    <!-- Secondary Coastal Markers -->
+                    <circle cx="29" cy="35" r="0.8" fill="#FFFFFF" opacity="0.6" />
+                    <text x="14" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="2.2" font-weight="500" fill="#FFFFFF" opacity="0.8">Acireale</text>
+                    
+                    <circle cx="78" cy="18" r="0.8" fill="#FFFFFF" opacity="0.6" />
+                    <text x="68" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="2.2" font-weight="500" fill="#FFFFFF" opacity="0.8">Melito di</text>
+                    <text x="64" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="2.2" font-weight="500" fill="#FFFFFF" opacity="0.8">Porto Salvo</text>
+
+                    <!-- Route Segment Tag Indicator Badge (SS185) -->
+                    <g transform="translate(10, 8)">
+                        <rect width="12" height="5" rx="1" fill="#FFFFFF" stroke="#1c3d5a" stroke-width="0.4" />
+                        <text x="2" y="3.8" font-family="system-ui, -apple-system, sans-serif" font-size="2" font-weight="700" fill="#1c3d5a" letter-spacing="0.1px">SS185</text>
+                    </g>
+                </svg>
+            
+            <!-- Tracking Fin Marker 1 -->
+            <div class="map-fin-marker" id="mapFin1" onclick="toggleBubble('bubble1')">
+                <div class="map-speech-bubble" id="bubble1">Enjoys shallow reef lines.</div>
+                <div class="bubble-splash" id="splash1">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="fin-pulse-ring"></div>
+                <img class="map-fin-img" src="SNOOT.png" alt="Pinging Fin 1">
+            </div>
+
+            <div class="map-fin-marker" id="mapFin2" onclick="toggleBubble('bubble2')">
+                <div class="map-speech-bubble" id="bubble2">Cruising coastal current highways.</div>
+                <div class="bubble-splash" id="splash2">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="fin-pulse-ring"></div>
+                <img class="map-fin-img" src="SNOOT.png" alt="Pinging Fin 2">
+            </div>
+
+            <div class="map-fin-marker" id="mapFin3" onclick="toggleBubble('bubble3')">
+                <div class="map-speech-bubble" id="bubble3">Foraging near shallow coastal drops.</div>
+                <div class="bubble-splash" id="splash3">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="fin-pulse-ring"></div>
+                <img class="map-fin-img" src="SNOOT.png" alt="Pinging Fin 3">
+            </div>
+        </div>
+        <script>
+        function toggleBubble(id) {
+            const bubbles = document.querySelectorAll('.map-speech-bubble');
+            const target = document.getElementById(id);
+            const splashNum = id.replace('bubble', '');
+            const targetSplash = document.getElementById('splash' + splashNum);
+
+            bubbles.forEach(b => {
+                if (b.id !== id && b.classList.contains('is-visible')) {
+                    const num = b.id.replace('bubble', '');
+                    const splash = document.getElementById('splash' + num);
+                    b.classList.remove('is-visible');
+                    b.classList.add('is-popping');
+                    splash.classList.add('splashing');
+                    setTimeout(() => {
+                        b.classList.remove('is-popping');
+                        splash.classList.remove('splashing');
+                    }, 200);
+                }
+            });
+
+            if (target.classList.contains('is-visible')) {
+                target.classList.remove('is-visible');
+                target.classList.add('is-popping');
+                targetSplash.classList.add('splashing');
+                setTimeout(() => {
+                    target.classList.remove('is-popping');
+                    targetSplash.classList.remove('splashing');
+                }, 200);
+            } else {
+                target.classList.add('is-visible');
+            }
+        }
+        </script>
+
+        <!-- Middle Text Block -->
+        <div class="map-text-block map-lower-text">
+            <div class="map-text-line">This map has interactive Sonark pings for</div>
+            <div class="map-text-line">a shark's last three known locations.</div>
+            <div style="margin-top: 8px;"></div>
+            <div class="map-text-line">On her latest ping, you can see she likes</div>
+            <div class="map-text-line">to hunt following warm coastal currents.</div>
+        </div>
+
+        <!-- Lower Text Block -->
+        <div class="map-text-block map-lowest-text">
+            <div class="map-text-line">This behavior is common in her species</div>
+            <div class="map-text-line">when there's plenty of food available!</div>
+            <div style="margin-top: 8px;"></div>
+            <div class="map-text-line">Tap the other fins to learn more about</div>
+            <div class="map-text-line">her habits and where she's traveled.</div>
+        </div>
+
+        <!-- Footer Accent Line Layout -->
+        <div class="star-footer-text">
+            THIS IS THE <span class="text-coral-star">STAR</span> OF SOMEONE ELSE'S STORY
+        </div>
+
+    </div>
+    <div class="cta-section">
+        <h2 class="cta-title">EVERY SHARK HAS A DIFFERENT STORY.</h2>
+        
+        <p class="cta-body">Some travel thousands of kilometers.</p>
+        <p class="cta-body">Some stay close to familiar waters.</p>
+        <p class="cta-body">Some disappear for months.</p>
+        <p class="cta-body cta-coral">No two journeys are ever the same.</p>
+
+        <button class="cta-main-btn" onclick="alert('Meet Your Shark clicked!')">MEET YOUR SHARK</button>
+
+        <p class="cta-sub-text">Stay up to date on promotions, special card edition drops and general information on what's happening to your shark</p>
+
+        <div class="email-signup">
+            <input type="email" class="email-input" placeholder="Enter your email...">
+            <button class="email-submit-btn" onclick="submitEmail()">JOIN THE TRACKING CLUB</button>
+        </div>
+    </div>
+    </div>
+
+        <!-- contents of about.html go here -->
+    <div class="about-panel" id="aboutPanel">
+        <div class="topo-bg"></div>
+        
+        <header>
+            <div class="header-left-zone">
+                <button class="nav-icon-btn" id="aboutMenuBtn" onclick="toggleMenu()">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="header-center-zone">
+                <img class="header-logo" src="Sonark1.png" alt="Sonark Logo">
+                <h1>Sonark</h1>
+            </div>
+            <div class="header-right-zone">
+                <button class="nav-icon-btn" onclick="alert('Shopping Cart Clicked')">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+        <div class="page-content">
+            <div class="about-section">
+                <h2 class="section-title">Our Mission</h2>
+                <p class="section-subtitle">THE OCEAN IS <span class="text-coral">FULL</span> OF STORIES</p>
+                <p class="section-body">Researchers track sharks to better understand their migrations, behaviours, and the challenges they face in a changing ocean.</p>
+                <p class="section-body">Most of these journeys remain hidden from the public. Sonark exists to change that.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="about-section">
+                <p class="section-subtitle">TURNING <span class="text-coral">RESEARCH</span> INTO <span class="text-coral">CONNECTION</span></p>
+                <p class="section-body">We believe conservation starts with connection.</p>
+                <p class="section-body">Sonark helps people follow the journey of a real animal while supporting marine research and education.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="about-section">
+                <p class="section-subtitle">WHAT MAKES SONARK <span class="text-coral">DIFFERENT</span>?</p>
+            </div>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <img class="fin-badge" src="SNOOT.png" alt="Fin">
+                    <span class="feature-text">Follow the live journey of a real tracked shark</span>
+                </div>
+                <div class="feature-item">
+                    <img class="fin-badge" src="SNOOT.png" alt="Fin">
+                    <span class="feature-text">Updates based on real shark movements</span>
+                </div>
+                <div class="feature-item">
+                    <img class="fin-badge" src="SNOOT.png" alt="Fin">
+                    <span class="feature-text">Collectible and unique shark profile cards</span>
+                </div>
+                <div class="feature-item">
+                    <img class="fin-badge" src="SNOOT.png" alt="Fin">
+                    <span class="feature-text">Every shark has a unique story</span>
+                </div>
+                <div class="feature-item">
+                    <img class="fin-badge" src="SNOOT.png" alt="Fin">
+                    <span class="feature-text">Supporting marine conservation worldwide</span>
+                </div>
+                <div class="feature-item">
+                    <img class="fin-badge" src="SNOOT.png" alt="Fin">
+                    <span class="feature-text">Follow shark journeys around the globe</span>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="about-section">
+                <p class="section-subtitle"><span class="text-coral">SHARKS</span>, WHAT ARE THEY GOOD FOR?</p>
+                <p class="section-body">Sharks help keep the ocean ecosystems balanced. As predators, they influence the health of reefs and fish populations.</p>
+                <p class="section-body">But many shark species face pressure from overfishing and habitat loss.</p>
+                <p class="section-body">Understanding where sharks travel helps researchers protect the places they depend on.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="about-section">
+                <h2 class="section-title">Our Vision</h2>
+                <p class="section-body">To make shark conservation feel personal.</p>
+                <p class="section-body">By turning real tracking data into individual shark stories, Sonark helps more people understand, follow, and care about the animals moving beneath the surface.</p>
+            </div>
+            <button class="cta-btn" onclick="closeAbout()">SEE WHO CHOOSES YOU</button>
+        </div>
+    </div>
+    <!-- END OF ABOUT.HTML -->
+
+    <!-- contents of FAQ.html go here -->
+    <div class="faq-panel" id="faqPanel">
+        <div class="topo-bg"></div>
+        <header>
+            <div class="header-left-zone">
+                <button class="nav-icon-btn" id="faqMenuBtn" onclick="toggleMenu()">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="header-center-zone">
+                <img class="header-logo" src="Sonark1.png" alt="Sonark Logo">
+                <h1>Sonark</h1>
+            </div>
+            <div class="header-right-zone">
+                <button class="nav-icon-btn" onclick="alert('Shopping Cart Clicked')">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+        <div class="page-content">
+            <h2 class="section-title">Frequently Asked</h2>
+            <div class="divider"></div>
+            <div class="faq-section">
+                <p class="faq-question">Are these real sharks?</p>
+                <p class="faq-answer">Yes. Sonark is designed to work with real tracked sharks and conservation partners.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="faq-section">
+                <p class="faq-question">Can I choose my shark?</p>
+                <p class="faq-answer">No. Your shark chooses you.</p>
+                <p class="faq-answer">Each card reveals a unique shark profile, making every Sonark track personal and special.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="faq-section">
+                <p class="faq-question">What do I receive?</p>
+                <p class="faq-answer">A unique physical shark profile card with your shark's name, species, fun facts, conservation status as well as a QR code that connects to its journey through the ocean.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="faq-section">
+                <p class="faq-question">How do I track my shark?</p>
+                <p class="faq-answer">Scan the QR code on your card to open and view your shark's profile in the Sonark app.</p>
+                <p class="faq-answer">There you can see updates, movement history and new Sonark pings.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="faq-section">
+                <p class="faq-question">How often will I get updates?</p>
+                <p class="faq-answer">Updates will depend on your shark's movement and available tracking data.</p>
+                <p class="faq-answer">Some sharks may update you often. Others may disappear for weeks or months before returning.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="faq-section">
+                <p class="faq-question">How does this help conservation?</p>
+                <p class="faq-answer">The goal of Sonark is to support shark research, education, and conservation by turning tracking data into stories people can follow and care about.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="faq-section">
+                <p class="faq-question">What is a ping?</p>
+                <p class="faq-answer">A Sonark ping is an update to your shark's journey.</p>
+                <p class="faq-answer">Updates include a new location, change in movement, new depth, or other significant changes.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="faq-section">
+                <p class="faq-question">What if my shark stops tracking?</p>
+                <p class="faq-answer">This can happen in wildlife tracking.</p>
+                <p class="faq-answer">If a tag stops sending data for an extended period, Sonark can either keep your shark's story archived or connect you with a new shark.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="faq-section">
+                <p class="faq-question">Still have questions?</p>
+                <p class="faq-answer">Get in touch and we'll help you out!</p>
+            </div>
+            <button class="cta-btn" onclick="closeFaq()">CONTACT US</button>
+        </div>
+    </div>
+    <!-- END OF FAQ HTML -->
+
+    </div>
+    <script>
+    let menuIsOpen = false;
+
+    function closeAll() {
+        if (menuIsOpen) toggleMenu();
+        document.getElementById('aboutPanel').classList.remove('is-open');
+        document.getElementById('aboutPanel').classList.remove('menu-open');
+        document.getElementById('faqPanel').classList.remove('is-open');
+        document.getElementById('faqPanel').classList.remove('menu-open');
+        document.getElementById('pageWrapper').style.visibility = 'visible';
+    }
+
+    function toggleMenu() {
+        menuIsOpen = !menuIsOpen;
+
+        const wrapper = document.getElementById('pageWrapper');
+        const drawer = document.getElementById('navDrawer');
+        const aboutPanel = document.getElementById('aboutPanel');
+        const faqPanel = document.getElementById('faqPanel');
+        const aboutIsOpen = aboutPanel.classList.contains('is-open');
+        const faqIsOpen = faqPanel.classList.contains('is-open');
+
+        if (menuIsOpen) {
+            drawer.classList.add('is-open');
+            if (aboutIsOpen) {
+                aboutPanel.classList.add('menu-open');
+            } else if (faqIsOpen) {
+                faqPanel.classList.add('menu-open');
+            } else {
+                wrapper.classList.add('menu-open');
+            }
+        } else {
+            drawer.classList.remove('is-open');
+            wrapper.classList.remove('menu-open');
+            aboutPanel.classList.remove('menu-open');
+            faqPanel.classList.remove('menu-open');
+        }
+
+        const openIcon = `<svg class="nav-icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+        const closeIcon = `<svg class="nav-icon" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+
+        document.getElementById('menuBtn').innerHTML = menuIsOpen ? openIcon : closeIcon;
+        const aboutBtn = document.getElementById('aboutMenuBtn');
+        if (aboutBtn) aboutBtn.innerHTML = menuIsOpen ? openIcon : closeIcon;
+        const faqBtn = document.getElementById('faqMenuBtn');
+        if (faqBtn) faqBtn.innerHTML = menuIsOpen ? openIcon : closeIcon;
+    }
+
+    function openAbout() {
+        if (menuIsOpen) toggleMenu();
+        closeAll();
+        document.getElementById('pageWrapper').style.visibility = 'hidden';
+        setTimeout(() => {
+            document.getElementById('aboutPanel').classList.add('is-open');
+        }, 50);
+    }
+
+    function closeAbout() {
+        document.getElementById('aboutPanel').classList.remove('is-open');
+        document.getElementById('aboutPanel').classList.remove('menu-open');
+        document.getElementById('pageWrapper').style.visibility = 'visible';
+        if (menuIsOpen) toggleMenu();
+    }
+
+    function openFaq() {
+        if (menuIsOpen) toggleMenu();
+        closeAll();
+        document.getElementById('pageWrapper').style.visibility = 'hidden';
+        setTimeout(() => {
+            document.getElementById('faqPanel').classList.add('is-open');
+        }, 50);
+    }
+
+    function closeFaq() {
+        document.getElementById('faqPanel').classList.remove('is-open');
+        document.getElementById('faqPanel').classList.remove('menu-open');
+        document.getElementById('pageWrapper').style.visibility = 'visible';
+        if (menuIsOpen) toggleMenu();
+    }
+
+    function submitEmail() {
+            const input = document.querySelector('.email-input');
+            const email = input.value.trim();
+            const valid = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email);
+            
+            if (!valid) {
+                input.style.borderColor = '#ff7f7f';
+                input.placeholder = 'Please enter a valid email...';
+                input.value = '';
+                setTimeout(() => {
+                    input.style.borderColor = 'rgba(255,255,255,0.2)';
+                    input.placeholder = 'Enter your email...';
+                }, 2000);
+                return;
+            }
+
+            input.style.borderColor = '#67a4da';
+            input.value = '';
+            input.placeholder = 'You\'re in! 🦈';
+            setTimeout(() => {
+                input.style.borderColor = 'rgba(255,255,255,0.2)';
+                input.placeholder = 'Enter your email...';
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
